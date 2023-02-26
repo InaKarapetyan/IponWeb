@@ -132,4 +132,6 @@ dmypy.json
 .DS_Store
 .src/DS_Store
 .migrations
+migrations
 media
+.media
