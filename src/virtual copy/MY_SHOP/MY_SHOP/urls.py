@@ -23,6 +23,11 @@ from .api.mybag import MyBugView
 from .api.purchase import PurchaseView
 from .api.store_category import StoreCategoryView
 from .api.store_owner import StoreOwnerView
+from MY_SHOP.polls.views import LoginView, RegisterView, LogoutView, verify_email, MyTokenObtainPairView, MyTokenRefreshView
+
+
+#_______________________________________________________________________________
+
 
 urlpatterns = [
     path("store/", StoreView.as_view()),
@@ -35,8 +40,17 @@ urlpatterns = [
     path("store_owner/", StoreOwnerView.as_view()),
     path('admin/', admin.site.urls),
     path('polls/', include('MY_SHOP.polls.urls')),
+    path('api/login/', LoginView.as_view()),
+    path('api/register/', RegisterView.as_view()),
+    path('api/logout/', LogoutView.as_view()),
+    path('verify-email/', verify_email, name='verify_email'),
+    path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', MyTokenRefreshView.as_view(), name='token_refresh'),
 
 ]
+
+
+#_______________________________________________________________________________
 
 
 from django.conf import settings
@@ -45,4 +59,6 @@ from django.conf.urls.static import static
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+
+
 

@@ -1,8 +1,13 @@
+from __future__ import absolute_import
 import json
 from django.views.generic import View
 from django.http import HttpResponse
 from MY_SHOP.polls.models import *
 from django.core import serializers
+from ..celery import app
+from ..tasks import *
+
+
 
 
 
@@ -19,6 +24,7 @@ class MyBugView(View):
 #________________________________
     
     def get(self,request):
+        send_feedback_email_task.delay()
         categories = MyBug.objects.all()
         data = []
         for category in categories:
